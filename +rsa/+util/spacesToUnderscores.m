@@ -1,6 +1,6 @@
 function stringOut = spacesToUnderscores(stringIn);
 %
-% removeSpaces will replace all spaces with underscores within a string
+% spacesToUnderscores will replace all spaces with underscores within a string
 %
 % Cai Wingfield 1-2010
 %__________________________________________________________________________

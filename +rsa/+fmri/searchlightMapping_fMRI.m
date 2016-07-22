@@ -162,7 +162,9 @@ import rsa.util.*
 	smm_bestModel=nan(volSize_vox);
 	smm_ps=nan([volSize_vox,nModelRDMs]);
 	smm_rs=nan([volSize_vox,nModelRDMs]);
-	searchlightRDMs = nan([nConditions, nConditions, volSize_vox]);
+  if nargout > 3
+    searchlightRDMs = nan([nConditions, nConditions, volSize_vox]);
+  end %if
 
 	if monitor
 		h_progressMonitor=progressMonitor(1, nVox_mappingMask_request,  'Similarity-graph-mapping...');
@@ -217,9 +219,11 @@ import rsa.util.*
 		end%if
 		
 		searchlightRDM = vectorizeRDM(searchlightRDM);
-		
-		% Locally store the full brain's worth of indexed RDMs.
-		searchlightRDMs(:, :, x, y, z) = squareform(searchlightRDM);
+	
+    if nargout > 3
+      % Locally store the full brain's worth of indexed RDMs.
+      searchlightRDMs(:, :, x, y, z) = squareform(searchlightRDM);
+    end% if
 		
 		try
 			[rs, ps] = corr(searchlightRDM', modelRDMs_ltv', 'type', 'Spearman', 'rows', 'pairwise');
